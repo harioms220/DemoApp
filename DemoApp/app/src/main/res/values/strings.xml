@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">DemoApp</string>
+
+    <string-array name="workers_list">
+        <item>All</item>
+        <item>Maid</item>
+        <item>Carpenter</item>
+        <item>Masson(HouseLabour)</item>
+        <item>Plumber</item>
+        <item>Architects(A/C servicing etc.)</item>
+        <item>Electrician</item>
+        <item>Babysitters</item>
+    </string-array>
+
+</resources>
