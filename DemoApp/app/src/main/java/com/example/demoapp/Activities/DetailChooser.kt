@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import com.example.demoapp.Constants.Constants.Companion.URL
 import com.example.demoapp.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -14,7 +15,7 @@ import java.io.IOException
 
 class DetailChooser : AppCompatActivity() {
 
-    private val URL = "http://api.androiddeft.com/cities/cities_array.json"
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

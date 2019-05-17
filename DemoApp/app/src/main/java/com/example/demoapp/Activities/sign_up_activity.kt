@@ -2,6 +2,7 @@ package com.example.demoapp.Activities
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.location.Address
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
@@ -23,67 +24,84 @@ class Sign_up_Acitivty : AppCompatActivity(){
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
 
-        btdate.setOnClickListener {
-            val dob = DatePickerDialog(this , R.style.DialogTheme , DatePickerDialog.OnDateSetListener{
-                    view, year, month, dayOfMonth ->
-                btdate.text = "${dayOfMonth.toString()} ${month.toString()} ${year.toString()}"
-            } , calendar.get(Calendar.YEAR) , calendar.get(Calendar.MONTH) , calendar.get(Calendar.DAY_OF_MONTH)).show()
+        etdate.setOnFocusChangeListener { view: View, b: Boolean ->
+            if(b) {
+                val dob = DatePickerDialog(
+                    this,
+                    R.style.DialogTheme,
+                    DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                        etdate.setText("${dayOfMonth.toString()} ${monthMapping(month)} ${year.toString()}")
+                    },
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)).show()
+            }
+        }
+        etdate.setOnClickListener(){
+            val dob = DatePickerDialog(
+                this,
+                R.style.DialogTheme,
+                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                    etdate.setText("${dayOfMonth.toString()} ${monthMapping(month)} ${year.toString()}")
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-        Continue.setOnClickListener {
-            val intent = Intent( baseContext, WorkerActivity::class.java)
-            startActivity(intent)
+        continue_button.setOnClickListener {
+            if(validateCredentials()) {
+                val intent = Intent(baseContext, WorkersAddress::class.java)
+                startActivity(intent)
+            }
         }
 
-
-
-//        register_now.setOnClickListener {
-//            validateCredentials()
-//        }
     }
 
-//    private fun validateCredentials() {
-//        if(!isValidUserName(etUserName.text.
-//                toString())){
-//            Toast.makeText(baseContext , "Username should contain only letters and numbers" ,Toast.LENGTH_SHORT).show()
-//        }
-//
-//        else if(etPassword.text.toString().length < 6 ){
-//            Toast.makeText(baseContext , "Password Length should be at least 6 characters long" ,Toast.LENGTH_SHORT).show()
-//        }
-//
-//        else if(!isValidPassWord(etPassword.text.toString())){
-//            Toast.makeText(baseContext , "Password should contain at least one letter or a number and a special symbol" ,Toast.LENGTH_SHORT).show()
-//        }
-//
-//        else if(!isValidPhoneNumber(etPhoneNumber.text.toString())){
-//            Toast.makeText(baseContext , "Invalid Phone Number ! " ,Toast.LENGTH_SHORT).show()
-//
-//        }
-//    }
+    private fun validateCredentials() : Boolean {
 
-    private fun isValidUserName(username : String): Boolean {
-        Log.e("Username" , username)
-        if(username.matches(Regex("^[\\w\\d]+\$"))){
-          return true
+        if(!ContainsAplhabetsOnly(etfirstName.text.toString())){
+            Toast.makeText(baseContext , "Name should contain only letters" ,Toast.LENGTH_SHORT).show()
+            return false;
         }
 
-        return false
+        if(etfirstName.text.isNullOrEmpty()){
+            Toast.makeText(baseContext , "Please Fill Your First Name" ,Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if(!ContainsAplhabetsOnly(etlastName.text.toString())){
+            Toast.makeText(baseContext , "Name should contain only letters" ,Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        else if(etdate.text.toString().equals("SELECT YOUR DOB")){
+            Toast.makeText(baseContext , "Please Choose Your Date of Birth" ,Toast.LENGTH_SHORT).show()
+            return false
+
+        }
+
+        return true
     }
 
-    private fun isValidPassWord(password : String): Boolean {
-        Log.e("Password" , password)
-        if(password.matches(Regex("^(([\\w]+[\\W]+)|([\\W]+[\\w]+))+\$"))){
-            return true
-        }
-        return false
+    private fun ContainsAplhabetsOnly(name: String) : Boolean {
+        return name.matches(Regex("^[a-zA-z]*\$"))
     }
 
-    private fun isValidPhoneNumber(password : String): Boolean {
-        Log.e("Password" , password)
-        if(password.matches(Regex("^\\d{10}+\$"))){
-            return true
+    private fun monthMapping(month : Int) : String{
+        return when(month){
+            0 -> "JAN"
+            1 -> "FEB"
+            2 -> "MAR"
+            3 -> "APR"
+            4 -> "MAY"
+            5 -> "JUN"
+            6 -> "JUL"
+            7 -> "AUG"
+            8 -> "SEP"
+            9 -> "OCT"
+            10 -> "NOV"
+            else -> "DEC"
         }
-        return false
     }
 }

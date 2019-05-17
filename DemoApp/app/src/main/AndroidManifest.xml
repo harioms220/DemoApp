@@ -12,6 +12,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".Activities.PhoneSignup">
+        </activity>
+        <activity android:name=".Activities.WorkersAddress">
+        </activity>
         <activity android:name=".Activities.WorkerActivity">
         </activity>
         <activity android:name=".Activities.DetailChooser">
