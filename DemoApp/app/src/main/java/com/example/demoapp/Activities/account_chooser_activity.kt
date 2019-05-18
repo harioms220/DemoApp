@@ -26,7 +26,7 @@ class Account_chooser_activity : AppCompatActivity() {
     }
 
     private fun launchSingnUpActivity(category : String) {
-        val intent = Intent(baseContext , Sign_up_Acitivty::class.java)
+        val intent = Intent(baseContext , PhoneSignup::class.java)
         intent.putExtra("Category" , category)
         startActivity(intent)
         finish()

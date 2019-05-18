@@ -20,4 +20,6 @@
         <item>Choose a city</item>
     </string-array>
 
+    <color name="myColor">#265658</color>
+
 </resources>

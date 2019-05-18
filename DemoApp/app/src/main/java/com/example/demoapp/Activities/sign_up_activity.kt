@@ -1,8 +1,13 @@
 package com.example.demoapp.Activities
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.location.Address
+import android.net.Uri
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
@@ -11,16 +16,28 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.demoapp.R
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.details_chooser.*
 import kotlinx.android.synthetic.main.signup.*
 import java.util.*
 
 class Sign_up_Acitivty : AppCompatActivity(){
 
+    private val REQUEST_IMAGE = 0
+
+    var  PROFILE_PHOTO_URI  : Uri? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.signup)
         val USER_TYPE = intent.getStringExtra("Category")
+        val uid = intent.getStringExtra("UID")
+
+        profile_photo.setOnClickListener{
+            choosePhoto()
+        }
+
+
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
 
@@ -51,9 +68,30 @@ class Sign_up_Acitivty : AppCompatActivity(){
 
         continue_button.setOnClickListener {
             if(validateCredentials()) {
-                val intent = Intent(baseContext, WorkersAddress::class.java)
-                startActivity(intent)
+
+                if(PROFILE_PHOTO_URI != null){
+                    uploadImageToFireBase(uid)
+                }
+
+//                val intent = Intent(baseContext, WorkersAddress::class.java)
+//                startActivity(intent)
             }
+        }
+
+    }
+
+    private fun choosePhoto() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent , REQUEST_IMAGE)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_IMAGE && resultCode == Activity.RESULT_OK){
+            val uriPhoto = data?.data
+            profile_photo.setImageURI(uriPhoto)
+            PROFILE_PHOTO_URI = uriPhoto
         }
 
     }
@@ -80,7 +118,6 @@ class Sign_up_Acitivty : AppCompatActivity(){
             return false
 
         }
-
         return true
     }
 
@@ -104,4 +141,25 @@ class Sign_up_Acitivty : AppCompatActivity(){
             else -> "DEC"
         }
     }
+    private fun uploadImageToFireBase(uid : String){
+
+        val firebaseStorage = FirebaseStorage.getInstance().getReferenceFromUrl("gs://demoapp-3afde.appspot.com")
+        firebaseStorage.child(uid).putFile(PROFILE_PHOTO_URI!!).addOnSuccessListener {
+            Toast.makeText(baseContext , "Image uploaded" , Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
 }
+
+class PersonDetails(
+    var FirstName : String,
+    var LastName  : String,
+    var Age : Int,
+    var DateOfBirth : String,
+    var Landmark : String,
+    var State : String,
+    var City : String,
+    var PhoneNumber : Long,
+    var image_url : String
+)
