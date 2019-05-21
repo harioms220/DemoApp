@@ -2,7 +2,6 @@ package com.example.demoapp.Activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import com.example.demoapp.Constants.Constants
 import com.example.demoapp.R
@@ -17,17 +16,17 @@ class Account_chooser_activity : AppCompatActivity() {
         setContentView(R.layout.account_chooser)
 
         worker_button.setOnClickListener{
-            launchSingnUpActivity(Constants.WORKER)
+            launchAuthenticationActivity(Constants.WORKER)
         }
 
         employer_button.setOnClickListener{
-            launchSingnUpActivity(Constants.EMPLOYER)
+            launchAuthenticationActivity(Constants.EMPLOYER)
         }
     }
 
-    private fun launchSingnUpActivity(category : String) {
-        val intent = Intent(baseContext , PhoneSignup::class.java)
-        intent.putExtra("Category" , category)
+    private fun launchAuthenticationActivity(usertype: String) {
+        val intent = Intent(baseContext , PhoneNumberAuthentication::class.java)
+        intent.putExtra("usertype" , usertype)
         startActivity(intent)
         finish()
     }

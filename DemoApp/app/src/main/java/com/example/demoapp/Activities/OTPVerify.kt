@@ -1,5 +1,7 @@
 package com.example.demoapp.Activities
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -15,11 +17,18 @@ import java.util.concurrent.TimeUnit
 
 class OTPVerify : AppCompatActivity() {
 
+    lateinit var usertype: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.otp_layout)
+        usertype = intent.getStringExtra("usertype")
+        authenticateUser()
+    }
+
+    private fun authenticateUser() {
         val phone_number = intent.getStringExtra("Number")
-        Log.e("Phone_Number " , phone_number)
+        Log.e("Phone_Number ", phone_number)
         val phoneAuthProvider = PhoneAuthProvider.getInstance()
         phoneAuthProvider.verifyPhoneNumber(
             phone_number,
@@ -32,7 +41,14 @@ class OTPVerify : AppCompatActivity() {
                 }
 
                 override fun onVerificationFailed(p0: FirebaseException?) {
-                    Log.e("Exception" , p0?.message.toString())
+                    Toast.makeText(
+                        baseContext,
+                        " Unable to verify the phone number\n Please Try Again",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val intent = Intent(baseContext, PhoneNumberAuthentication::class.java)
+                    startActivity(intent)
+                    finish()
                 }
 
                 override fun onCodeSent(verificationID: String?, p1: PhoneAuthProvider.ForceResendingToken?) {
@@ -52,13 +68,12 @@ class OTPVerify : AppCompatActivity() {
     fun signInWithPhoneAuthCredential(phoneAuthCredential: PhoneAuthCredential) {
         var firebaseAuth = FirebaseAuth.getInstance()
         firebaseAuth.signInWithCredential(phoneAuthCredential).addOnSuccessListener {
-            val intent = Intent(baseContext , Sign_up_Acitivty::class.java)
             val uid = firebaseAuth.currentUser?.uid
-            intent.putExtra("UID" , uid)
-            startActivity(intent)
-            finish()
-        }.addOnFailureListener{
-            Toast.makeText(baseContext , it.message , Toast.LENGTH_SHORT)
+            val sharedPreferences = getSharedPreferences("uid", Context.MODE_PRIVATE)
+            sharedPreferences.edit().putString("uid", uid).apply()
+            val intent = Intent(baseContext, WorkerMainActivity::class.java)
+        }.addOnFailureListener {
+            Toast.makeText(baseContext, it.message, Toast.LENGTH_SHORT).show()
         }
     }
 }

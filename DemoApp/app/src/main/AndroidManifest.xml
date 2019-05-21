@@ -12,17 +12,27 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        <activity
+                android:name=".Activities.EmployerMainActivity"
+                android:label="@string/title_activity_employer_main"
+                android:theme="@style/NoActionBar">
+        </activity>
+        <activity
+                android:name=".Activities.IntroActivity"
+                android:label="@string/title_activity_intro"
+                android:theme="@style/NoActionBar">
+        </activity>
         <activity android:name=".Activities.OTPVerify">
         </activity>
-        <activity android:name=".Activities.PhoneSignup">
+        <activity android:name=".Activities.PhoneNumberAuthentication">
         </activity>
-        <activity android:name=".Activities.WorkersAddress">
+        <activity android:name=".Activities.WorkersAddressPickerActivity">
         </activity>
-        <activity android:name=".Activities.WorkerActivity">
+        <activity android:name=".Activities.WorkerMainActivity">
         </activity>
         <activity android:name=".Activities.DetailChooser">
         </activity>
-        <activity android:name=".Activities.Sign_up_Acitivty">
+        <activity android:name=".Activities.WorkerPersonalDetailsPickerActivity">
         </activity>
         <activity android:name=".Activities.Account_chooser_activity">
         </activity>

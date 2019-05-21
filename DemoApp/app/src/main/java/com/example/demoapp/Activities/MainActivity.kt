@@ -1,8 +1,10 @@
 package com.example.demoapp.Activities
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.SyncStateContract
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
@@ -11,6 +13,7 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ClickableSpan
 import android.view.View
+import com.example.demoapp.Constants.Constants
 import com.example.demoapp.R
 import com.example.viewpager.Fragments.FragmentA
 import com.example.viewpager.Fragments.FragmentB
@@ -19,58 +22,48 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val SIGN_UP_SUCCESSFUL = 1;
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewPager.adapter = MypagerAdapter(supportFragmentManager)
-        spring_dots_indicator.setViewPager(viewPager)
-        val string = SpannableString("Already have an account? Login.")
-        string.setSpan(CustomClickableSpan(), 0, string.length , Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        login.text = string
 
-        create_account.setOnClickListener{
-            val intent = Intent(baseContext , Account_chooser_activity::class.java)
-            startActivityForResult(intent , SIGN_UP_SUCCESSFUL)
+        // checking if the user has logged in previously
+        val sharedPreferences = getSharedPreferences("loginStatus" , Context.MODE_PRIVATE)
+        val is_first_login = sharedPreferences.getBoolean("loginStatus" , true)
+
+        if(is_first_login){
+            startAppIntroActivity()
         }
-    }
+        sharedPreferences.edit().putBoolean("loginstatus" , false).apply()
+        val user_type = sharedPreferences.getString("usertype" , "USER_TYPE_INVALID")
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        if(requestCode == SIGN_UP_SUCCESSFUL){
-//            finish()
-//        }
-    }
+        /// code for launching the main activity depending upon the type of user
 
+        when(user_type){
+            Constants.WORKER ->{
+                //code for launching workers main Activity
+                val intent = Intent(baseContext , WorkerMainActivity::class.java)
+                startActivity(intent)
+            }
+            Constants.EMPLOYER ->{
+                // code for launching employers main Activity
+                val intent = Intent(baseContext , WorkerMainActivity::class.java)
+                startActivity(intent)
+            }
+            else ->{
+                // code to handle invalid users
 
-    private class CustomClickableSpan : ClickableSpan(){
-        override fun onClick(widget: View) {
-
+            }
         }
-    }
-}
 
+        finish()
 
-
-class MypagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager){
-    override fun getItem(p0: Int): Fragment {
-        return when(p0){
-            0 -> FragmentA()
-            1 -> FragmentB()
-            else -> FragmentC()
-        }
     }
 
-    override fun getCount(): Int = 3
-
-
-//    override fun getPageTitle(position: Int): CharSequence? {
-//        return when(position){
-//            0 -> "A"
-//            1 -> "B"
-//            2 -> "C"
-//            else -> "D"
-//        }
-//    }
+    private fun startAppIntroActivity() {
+        val Intent = Intent(baseContext , IntroActivity::class.java)
+        startActivity(intent)
+    }
 }
 

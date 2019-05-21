@@ -2,15 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:gravity="center"
-              android:outlineAmbientShadowColor="@color/colorPrimaryDark"
-              android:background="#00B0FF"
+              android:background="#FAFDFD"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
     <Button
             android:text="I am a Worker"
-            android:shadowColor="@color/colorPrimaryDark"
-            android:textColor="#448AFF"
+
+            android:textColor="@color/colorPrimaryDark"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:textColorHighlight="#448AFF"
@@ -23,13 +22,12 @@
 
     <Button
             android:text="I am an Employer"
-            android:textColor="#448AFF"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:textColorHighlight="#448AFF"
             android:backgroundTint="#FFFFFF"
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content"
             android:id="@+id/employer_button"/>
 

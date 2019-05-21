@@ -34,24 +34,6 @@
         />
 
         <TextView
-                android:id="@+id/pincode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Postal code :"
-                android:layout_margin="10dp"
-                android:textStyle="bold"
-        />
-
-        <EditText
-                android:id="@+id/etPostalCode"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="6-Digit Pincode"
-                android:layout_margin="10dp"
-        />
-
-        <TextView
                 android:text="State :"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

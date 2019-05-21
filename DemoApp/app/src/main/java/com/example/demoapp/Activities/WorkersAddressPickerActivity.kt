@@ -1,5 +1,6 @@
 package com.example.demoapp.Activities
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -12,20 +13,27 @@ import com.example.demoapp.Constants.Constants.Companion.URL
 import com.example.demoapp.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.worker_address.*
+import kotlinx.android.synthetic.main.worker_address_picker_layout.*
 import okhttp3.*
 import java.io.IOException
 
-class WorkersAddress : AppCompatActivity() {
+
+// Activity to pick the address details of the worker.
+
+class WorkersAddressPickerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.worker_address)
+
+
+        setContentView(R.layout.worker_address_picker_layout)
         fillStatesAndCities()
         button_continue.setOnClickListener {
             if (validateCredentials()) {
-                val intent = Intent(baseContext , WorkerActivity::class.java)
-                startActivity(intent)
+                val intent = Intent()
+                intent.putExtra("street" , etstreet.text.toString())
+                intent.putExtra("city" , citySpinner.selectedItem.toString())
+                intent.putExtra("state" , stateSpinner.selectedItem.toString())
             }
         }
     }
@@ -33,16 +41,6 @@ class WorkersAddress : AppCompatActivity() {
     private fun validateCredentials(): Boolean {
         if (etstreet.text.toString().isNullOrEmpty()) {
             Toast.makeText(baseContext, "Please fill your Landmark or Area", Toast.LENGTH_SHORT).show()
-            return false
-        }
-
-        if (etPostalCode.text.toString().isNullOrEmpty()) {
-            Toast.makeText(baseContext, "Please Enter your Postal Code", Toast.LENGTH_SHORT).show()
-            return false
-        }
-
-        if (!isValidate(etPostalCode.text.toString())) {
-            Toast.makeText(baseContext, "Postal Code is not valid", Toast.LENGTH_SHORT).show()
             return false
         }
 
