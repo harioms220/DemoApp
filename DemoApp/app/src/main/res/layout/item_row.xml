@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"/>
 
         <RatingBar
+                android:id="@+id/ratingBar"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp"
                 android:numStars="5"

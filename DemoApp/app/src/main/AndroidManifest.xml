@@ -30,8 +30,6 @@
         </activity>
         <activity android:name=".Activities.WorkerMainActivity">
         </activity>
-        <activity android:name=".Activities.DetailChooser">
-        </activity>
         <activity android:name=".Activities.WorkerPersonalDetailsPickerActivity">
         </activity>
         <activity android:name=".Activities.Account_chooser_activity">

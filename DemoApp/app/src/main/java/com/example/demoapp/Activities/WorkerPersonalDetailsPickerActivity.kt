@@ -20,16 +20,11 @@ class WorkerPersonalDetailsPickerActivity : AppCompatActivity() {
 
     private val REQUEST_IMAGE = 0
 
-    private val SIGN_UP_COMPLETED = 1
-
-    var PROFILE_PHOTO_URI: Uri? = null
+    var PROFILE_PHOTO_URI : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.worker_personal_details_picker_activity)
-
-        val USER_TYPE = intent.getStringExtra("Category")
-        val uid = intent.getStringExtra("UID")
 
         profile_photo.setOnClickListener {
             choosePhoto()
@@ -52,8 +47,8 @@ class WorkerPersonalDetailsPickerActivity : AppCompatActivity() {
                 intent.putExtra("firstname", etfirstName.text.toString())
                 intent.putExtra("lastname", etlastName.text.toString())
                 intent.putExtra("dateofbirth", etdate.text.toString())
-
-                startActivityForResult(intent , SIGN_UP_COMPLETED )
+                intent.putExtra("uri" , PROFILE_PHOTO_URI)
+                startActivity(intent)
             }
         }
 
@@ -87,14 +82,8 @@ class WorkerPersonalDetailsPickerActivity : AppCompatActivity() {
         if (requestCode == REQUEST_IMAGE && resultCode == Activity.RESULT_OK) {
             val uriPhoto = data?.data
             profile_photo.setImageURI(uriPhoto)
-            PROFILE_PHOTO_URI = uriPhoto
+            PROFILE_PHOTO_URI = uriPhoto.toString()
         }
-
-        if(requestCode == SIGN_UP_COMPLETED && resultCode == Activity.RESULT_OK){
-            // add code for uploading the details on the firebase database
-
-        }
-
     }
 
     private fun validateCredentials(): Boolean {
@@ -110,12 +99,31 @@ class WorkerPersonalDetailsPickerActivity : AppCompatActivity() {
         }
 
         if (!ContainsAplhabetsOnly(etlastName.text.toString())) {
+            Toast.makeText(baseContext, "Last Name should contain only letters", Toast.LENGTH_SHORT).show()
+            return false;
+        }
+
+        if (etlastName.text.isNullOrEmpty()) {
+            Toast.makeText(baseContext, "Please Fill Your Last Name", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (!ContainsAplhabetsOnly(etlastName.text.toString())) {
             Toast.makeText(baseContext, "Name should contain only letters", Toast.LENGTH_SHORT).show()
             return false
         } else if (etdate.text.toString().equals("SELECT YOUR DOB")) {
             Toast.makeText(baseContext, "Please Choose Your Date of Birth", Toast.LENGTH_SHORT).show()
             return false
+        }
 
+        if(findAge(etdate.text.toString()).toInt() <= 18){
+            Toast.makeText(baseContext, "Your Age is less than 18", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if(PROFILE_PHOTO_URI == null){
+            Toast.makeText(baseContext, "Please Choose Profile Image", Toast.LENGTH_SHORT).show()
+            return false
         }
         return true
     }
@@ -123,30 +131,8 @@ class WorkerPersonalDetailsPickerActivity : AppCompatActivity() {
     private fun ContainsAplhabetsOnly(name: String): Boolean {
         return name.matches(Regex("^[a-zA-z]*\$"))
     }
-
-
-    private fun uploadImageToFireBase(uid: String) {
-
-        val firebaseStorage = FirebaseStorage.getInstance().getReferenceFromUrl("gs://demoapp-3afde.appspot.com")
-        firebaseStorage.child(uid).putFile(PROFILE_PHOTO_URI!!).addOnSuccessListener {
-            Toast.makeText(baseContext, "Image uploaded", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-
 }
 
-class PersonDetails(
-    var FirstName: String,
-    var LastName: String,
-    var Age: Int,
-    var DateOfBirth: String,
-    var Landmark: String,
-    var State: String,
-    var City: String,
-    var PhoneNumber: Long,
-    var image_url: String
-)
 
 fun monthMapping(month: Int): String {
     return when (month) {
@@ -162,22 +148,5 @@ fun monthMapping(month: Int): String {
         9 -> "OCT"
         10 -> "NOV"
         else -> "DEC"
-    }
-}
-
-fun reverseMonthMapping(month: String): Int {
-    return when (month) {
-        "JAN" -> 0
-        "FEB" -> 1
-        "MAR" -> 2
-        "APR" -> 3
-        "MAY" -> 4
-        "JUN" -> 5
-        "JUL" -> 6
-        "AUG" -> 7
-        "SEP" -> 8
-        "OCT" -> 9
-        "NOV" -> 10
-        else -> 11
     }
 }

@@ -5,8 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.SyncStateContract
 import android.util.Log
 import android.widget.Toast
+import com.example.demoapp.Constants.Constants
 import com.example.demoapp.R
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
@@ -57,7 +59,6 @@ class OTPVerify : AppCompatActivity() {
                         if (!etOTP.text.toString().isNullOrEmpty()) {
                             val credential =
                                 PhoneAuthProvider.getCredential(verificationID!!, etOTP.text.toString())
-
                             signInWithPhoneAuthCredential(credential)
                         }
                     }
@@ -69,9 +70,23 @@ class OTPVerify : AppCompatActivity() {
         var firebaseAuth = FirebaseAuth.getInstance()
         firebaseAuth.signInWithCredential(phoneAuthCredential).addOnSuccessListener {
             val uid = firebaseAuth.currentUser?.uid
-            val sharedPreferences = getSharedPreferences("uid", Context.MODE_PRIVATE)
-            sharedPreferences.edit().putString("uid", uid).apply()
-            val intent = Intent(baseContext, WorkerMainActivity::class.java)
+            val sharedPreferences = getSharedPreferences("demopref", Context.MODE_PRIVATE)
+            val phone_number = intent.getStringExtra("Number")
+            sharedPreferences.edit().putString("uid", uid)
+                .putBoolean("loginstatus" , false)
+                .putString("usertype" , usertype)
+                .putString("phonenumber" , phone_number)
+                .apply()
+
+            if(usertype == Constants.WORKER) {
+                val intent = Intent(baseContext, WorkerMainActivity::class.java)
+                startActivity(intent)
+            }
+
+            else{
+                val intent = Intent(baseContext, EmployerMainActivity::class.java)
+                startActivity(intent)
+            }
         }.addOnFailureListener {
             Toast.makeText(baseContext, it.message, Toast.LENGTH_SHORT).show()
         }

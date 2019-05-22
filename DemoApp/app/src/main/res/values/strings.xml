@@ -2,7 +2,6 @@
     <string name="app_name">DemoApp</string>
 
     <string-array name="workers_list">
-        <item>All</item>
         <item>Maid</item>
         <item>Carpenter</item>
         <item>Masson(HouseLabour)</item>

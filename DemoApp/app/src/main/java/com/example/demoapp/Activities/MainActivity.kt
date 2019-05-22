@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.View
 import com.example.demoapp.Constants.Constants
 import com.example.demoapp.R
@@ -29,40 +30,36 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // checking if the user has logged in previously
-        val sharedPreferences = getSharedPreferences("loginStatus" , Context.MODE_PRIVATE)
-        val is_first_login = sharedPreferences.getBoolean("loginStatus" , true)
-
+        val sharedPreferences = getSharedPreferences("demopref" , Context.MODE_PRIVATE)
+        val is_first_login = sharedPreferences.getBoolean("loginstatus" , true)
+        Log.e("LOGGED" , is_first_login.toString())
         if(is_first_login){
+            Log.e("bhai" , "chala")
             startAppIntroActivity()
         }
-        sharedPreferences.edit().putBoolean("loginstatus" , false).apply()
         val user_type = sharedPreferences.getString("usertype" , "USER_TYPE_INVALID")
 
         /// code for launching the main activity depending upon the type of user
 
         when(user_type){
+
+            Constants.EMPLOYER ->{
+                // code for launching employers main Activity
+                val intent = Intent(baseContext , EmployerMainActivity::class.java)
+                startActivity(intent)
+            }
+
             Constants.WORKER ->{
                 //code for launching workers main Activity
                 val intent = Intent(baseContext , WorkerMainActivity::class.java)
                 startActivity(intent)
             }
-            Constants.EMPLOYER ->{
-                // code for launching employers main Activity
-                val intent = Intent(baseContext , WorkerMainActivity::class.java)
-                startActivity(intent)
-            }
-            else ->{
-                // code to handle invalid users
-
-            }
         }
-
         finish()
-
     }
 
     private fun startAppIntroActivity() {
-        val Intent = Intent(baseContext , IntroActivity::class.java)
+        val intent = Intent(baseContext , IntroActivity::class.java)
         startActivity(intent)
     }
 }
