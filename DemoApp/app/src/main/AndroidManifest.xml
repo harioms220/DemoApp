@@ -15,7 +15,7 @@
         <activity
                 android:name=".Activities.EmployerMainActivity"
                 android:label="@string/title_activity_employer_main"
-                android:theme="@style/NoActionBar">
+                android:theme="@style/Theme.AppCompat.Light">
         </activity>
         <activity
                 android:name=".Activities.IntroActivity"

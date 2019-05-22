@@ -86,6 +86,7 @@ class WorkersAddressPickerActivity : AppCompatActivity() {
         val uid = sharedPreferences.getString("uid", null)
         val category = categories.text.toString()
         val firebaseDatabase = FirebaseDatabase.getInstance().reference
+            .child(city)
             .child("workers")
             .child(category)
 
@@ -95,11 +96,12 @@ class WorkersAddressPickerActivity : AppCompatActivity() {
             Toast.makeText(baseContext, "Image uploaded", Toast.LENGTH_SHORT).show()
             firebaseStorage.child(uid).downloadUrl.addOnSuccessListener {
                 val personDetails = PersonDetails(firstname, lastname, dob, street, state, city, phoneNumber, it.toString())
-                firebaseDatabase.child(city).child(uid).setValue(personDetails)
+                firebaseDatabase.child(uid).setValue(personDetails)
                     .addOnSuccessListener {
                         Toast.makeText(baseContext, "Details submitted successfully", Toast.LENGTH_SHORT).show()
                         sharedPreferences.edit().putBoolean("signedinstatus" , true)
                             .putString("category" , category)
+                            .putString("city" , city)
                             .apply()
                         val intent = Intent(baseContext , WorkerMainActivity::class.java)
                         startActivity(intent)

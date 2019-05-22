@@ -4,7 +4,7 @@
     <string-array name="workers_list">
         <item>Maid</item>
         <item>Carpenter</item>
-        <item>Masson(HouseLabour)</item>
+        <item>Mason(HouseLabour)</item>
         <item>Plumber</item>
         <item>Architects(A/C servicing etc.)</item>
         <item>Electrician</item>

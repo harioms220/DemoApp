@@ -28,8 +28,9 @@ class WorkerMainActivity : AppCompatActivity() {
         val alreadysignedin = sharedPreferences.getBoolean("signedinstatus" , false)
         val uid = sharedPreferences.getString("uid" , null)
         val category = sharedPreferences.getString("category" , null)
+        val city = sharedPreferences.getString("city" , null)
         if(alreadysignedin){
-            showDetailsOfWorker(uid , category)
+            showDetailsOfWorker(uid , category , city)
         }
 
         else{
@@ -40,9 +41,9 @@ class WorkerMainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showDetailsOfWorker(uid : String , category: String) {
+    private fun showDetailsOfWorker(uid : String , category: String , city : String) {
         // code to fetch data from the firebase database and display in the worker activity
-        val firebaseDatabase = FirebaseDatabase.getInstance().reference.child("workers")
+        val firebaseDatabase = FirebaseDatabase.getInstance().reference.child(city).child("workers")
             .child(category)
             .child(uid).addValueEventListener(object : ValueEventListener{
                 override fun onCancelled(p0: DatabaseError) {
