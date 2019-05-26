@@ -12,10 +12,13 @@
 
         <TextView
                 android:id="@+id/tvOTP"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:textSize="16sp"
                 android:text="Enter the OTP sent to your number :"
+                android:fontFamily="@font/futura_light_bt"
                 android:layout_margin="8dp"
         />
 
@@ -23,17 +26,24 @@
                 android:id="@+id/etOTP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/futura_light_bt"
+                android:background="@drawable/edittext_style"
                 android:layout_margin="10dp"
                 android:inputType="number"
         />
 
         <Button
                 android:id="@+id/log_in"
-                android:layout_width="136dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/futura_light_bt"
+                android:background="@drawable/button_style"
                 android:text="Continue"
+                android:textStyle="bold"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@drawable/color_selector"
         />
 
         <TextView
@@ -41,6 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:fontFamily="@font/futura_light_bt"
                 android:text="OR"
                 android:layout_gravity="center"
                 android:layout_margin="8dp"
@@ -48,10 +59,14 @@
         />
 
         <Button
-                android:id="@+id/tvChangeNumber"
-                android:layout_width="wrap_content"
+                android:id="@+id/ChangeNumber"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/futura_light_bt"
                 android:text="Enter another number"
+                android:background="@drawable/button_style"
+                android:textStyle="bold"
+                android:textColor="@drawable/color_selector"
                 android:layout_gravity="center"
                 android:layout_margin="8dp"
         />

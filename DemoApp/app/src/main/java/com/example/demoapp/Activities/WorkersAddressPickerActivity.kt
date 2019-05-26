@@ -95,7 +95,7 @@ class WorkersAddressPickerActivity : AppCompatActivity() {
         firebaseStorage.child(uid).putFile(Uri.parse(uriphoto)).addOnSuccessListener {
             Toast.makeText(baseContext, "Image uploaded", Toast.LENGTH_SHORT).show()
             firebaseStorage.child(uid).downloadUrl.addOnSuccessListener {
-                val personDetails = PersonDetails(firstname, lastname, dob, street, state, city, phoneNumber, it.toString())
+                val personDetails = PersonDetails(uid , firstname, lastname, dob, street, state, city, phoneNumber, it.toString())
                 firebaseDatabase.child(uid).setValue(personDetails)
                     .addOnSuccessListener {
                         Toast.makeText(baseContext, "Details submitted successfully", Toast.LENGTH_SHORT).show()
@@ -112,8 +112,6 @@ class WorkersAddressPickerActivity : AppCompatActivity() {
                     }
             }
         }
-
-
 
     }
 
@@ -231,6 +229,7 @@ class Person(
 )
 
 class PersonDetails(
+    var uid: String = "",
     var FirstName: String = "Anonymous",
     var LastName: String = "",
     var DateOfBirth: String = "1 JAN 1900",

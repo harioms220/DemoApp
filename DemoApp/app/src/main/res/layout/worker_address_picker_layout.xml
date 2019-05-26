@@ -24,6 +24,7 @@
                     android:textStyle="bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/futura_light_bt"
                     android:id="@+id/category"
                     android:layout_margin="10dp"
             />
@@ -31,6 +32,8 @@
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_style"
+                    android:fontFamily="@font/futura_light_bt"
                     android:id="@+id/categories"
                     android:hint="Choose Your Job"
                     android:layout_margin="10dp"
@@ -40,6 +43,7 @@
                     android:id="@+id/tvstreet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/futura_light_bt"
                     android:text="Area/Street/Landmark:"
                     android:layout_margin="10dp"
                     android:textStyle="bold"
@@ -48,6 +52,8 @@
             <EditText
                     android:id="@+id/etstreet"
                     android:inputType="textMultiLine"
+                    android:fontFamily="@font/futura_light_bt"
+                    android:background="@drawable/edittext_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -57,6 +63,7 @@
             <TextView
                     android:text="State :"
                     android:layout_width="match_parent"
+                    android:fontFamily="@font/futura_light_bt"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvState"
                     android:layout_margin="10dp"
@@ -65,6 +72,8 @@
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/futura_light_bt"
+                    android:background="@drawable/edittext_style"
                     android:hint="Choose Your State"
                     android:id="@+id/etStates"
                     android:layout_margin="10dp"
@@ -81,6 +90,8 @@
             <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_style"
+                    android:fontFamily="@font/futura_light_bt"
                     android:id="@+id/etCities"
                     android:hint="Choose Your City"
                     android:layout_margin="10dp"
@@ -94,9 +105,11 @@
                 android:text="Continue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/futura_light_bt"
                 android:id="@+id/button_continue"
                 android:layout_below="@+id/layout_lin"
                 android:layout_centerHorizontal="true"
+                android:background="@drawable/button_style"
                 android:layout_margin="10dp"
         />
 

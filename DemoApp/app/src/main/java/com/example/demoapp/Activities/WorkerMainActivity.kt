@@ -57,7 +57,6 @@ class WorkerMainActivity : AppCompatActivity() {
                     tvaddress.text = personDetails?.Landmark + ", " + personDetails?.City + ", " + personDetails?.State
                     tvAge.text = findAge(personDetails?.DateOfBirth)
                     Picasso.get().load(personDetails?.image_url).into(detail_profile_image)
-                    layout.visibility = View.GONE
                 }
 
             })

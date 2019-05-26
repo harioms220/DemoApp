@@ -13,18 +13,25 @@
 
         <TextView
                 android:id="@+id/tvPhoneNumber_login"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="16sp"
                 android:text="Enter Your Phone Number :"
                 android:textStyle="bold"
                 android:layout_margin="8dp"
+                android:fontFamily="@font/futura_light_bt"
         />
 
         <EditText
                 android:id="@+id/etPhoneNumber_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edittext_style"
                 android:layout_margin="10dp"
+                android:fontFamily="@font/futura_light_bt"
+                style="@style/EditTextTheme"
+                android:textStyle="bold"
                 android:inputType="number"
         />
 
@@ -33,6 +40,10 @@
                 android:layout_width="136dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="@font/futura_light_bt"
+                android:textColor="@drawable/color_selector"
+                android:background="@drawable/button_style"
                 android:text="SEND OTP"
                 android:layout_margin="10dp"
         />

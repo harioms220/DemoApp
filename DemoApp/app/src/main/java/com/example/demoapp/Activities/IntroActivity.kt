@@ -24,7 +24,6 @@ import kotlinx.android.synthetic.main.activity_intro.*
 
 class IntroActivity : AppCompatActivity() {
 
-    private val SIGN_UP_SUCCESSFUL = 1;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,26 +31,15 @@ class IntroActivity : AppCompatActivity() {
 
         viewPager.adapter = MypagerAdapter(supportFragmentManager)
         spring_dots_indicator.setViewPager(viewPager)
-        val string = SpannableString("Already have an account? Login.")
-        string.setSpan(CustomClickableSpan(), 0, string.length , Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        login.text = string
 
         create_account.setOnClickListener{
             val intent = Intent(baseContext , Account_chooser_activity::class.java)
-            startActivityForResult(intent , SIGN_UP_SUCCESSFUL)
+            startActivity(intent)
         }
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        if(requestCode == SIGN_UP_SUCCESSFUL){
-//            finish()
-//        }
-    }
-
-
-    private class CustomClickableSpan : ClickableSpan(){
-        override fun onClick(widget: View) {
-
+        login.setOnClickListener {
+            val intent = Intent(baseContext , Account_chooser_activity::class.java)
+            startActivity(intent)
         }
     }
 }

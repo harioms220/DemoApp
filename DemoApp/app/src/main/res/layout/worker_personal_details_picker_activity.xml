@@ -2,6 +2,7 @@
 
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -9,73 +10,72 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_photo"
-            android:layout_width="150dp"
+            app:civ_border_color="#C7C7CE"
+            android:layout_width="120dp"
             android:layout_marginBottom="60dp"
-            android:src="@mipmap/add_photo_round"
-            android:layout_height="150dp"
+            android:src="@mipmap/person_add"
+            android:layout_height="120dp"
     />
 
 
-    <TextView
-            android:id="@+id/tvfirstName"
+    <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="First Name : "
-            android:layout_margin="10dp"
-            android:textStyle="bold"
-    />
+    >
+        <android.support.design.widget.TextInputEditText
+                android:id="@+id/etfirstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/futura_light_bt"
+                android:hint="Enter Your first name"
+                android:layout_margin="10dp"
+        />
+    </android.support.design.widget.TextInputLayout>
 
-    <EditText
-            android:id="@+id/etfirstName"
+    <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Your first name"
-            android:layout_margin="10dp"
-    />
+    >
 
-    <TextView
-            android:id="@+id/tvlastName"
+        <android.support.design.widget.TextInputEditText
+                style="@style/EditTextTheme"
+                android:id="@+id/etlastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/futura_light_bt"
+                android:hint="Enter your Surname"
+                android:layout_margin="10dp"
+        />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Last Name :"
-            android:layout_margin="10dp"
-            android:textStyle="bold"
-    />
+    >
 
-    <EditText
-            android:id="@+id/etlastName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter your Surname"
-            android:layout_margin="10dp"
-    />
+        <android.support.design.widget.TextInputEditText
+                style="@style/EditTextTheme"
+                android:id="@+id/etdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/futura_light_bt"
+                android:hint="SELECT YOUR DOB"
+                android:layout_margin="10dp"/>
+        >
 
-
-    <TextView
-            android:id="@+id/tvDob"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Date of Birth :"
-            android:layout_margin="10dp"
-            android:textStyle="bold"
-    />
-
-    <EditText
-            android:id="@+id/etdate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="SELECT YOUR DOB"
-            android:layout_margin="10dp"/>
-
-
-    <Button
-            android:id="@+id/continue_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Continue"
-            android:layout_gravity="bottom|center"
-            android:layout_margin="10dp"
-    />
+    </android.support.design.widget.TextInputLayout>
+        <Button
+                android:id="@+id/continue_button"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_style"
+                android:fontFamily="@font/futura_light_bt"
+                android:text="Continue"
+                android:textColor="@drawable/color_selector"
+                android:layout_gravity="bottom|center"
+                android:layout_margin="10dp"
+        />
 
 
 </LinearLayout>

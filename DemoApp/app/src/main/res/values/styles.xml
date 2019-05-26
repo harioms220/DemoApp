@@ -10,7 +10,7 @@
 
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">
-            @color/White
+            @color/materialBlue
         </item>
     </style>
     <style name="NoActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -20,5 +20,30 @@
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+
+    <!-- the theme applied to the application or activity -->
+    <style name="MyTheme"
+           parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/MyActionBar</item>
+    </style>
+
+    <!-- ActionBar styles -->
+    <style name="MyActionBar"
+           parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@color/materialBlue</item>
+
+        <!-- Support library compatibility -->
+        <item name="background">@color/materialBlue</item>
+    </style>
+
+
+    <style name="EditTextTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/materialBlue</item>
+        <item name="colorControlActivated">@color/materialBlue</item>
+        <item name="colorControlHighlight">@color/materialBlue</item>
+    </style>
 
 </resources>

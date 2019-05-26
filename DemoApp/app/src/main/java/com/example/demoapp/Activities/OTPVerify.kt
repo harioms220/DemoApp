@@ -26,6 +26,15 @@ class OTPVerify : AppCompatActivity() {
         setContentView(R.layout.otp_layout)
         usertype = intent.getStringExtra("usertype")
         authenticateUser()
+
+        ChangeNumber.setOnClickListener{
+            val intent = Intent(baseContext , PhoneNumberAuthentication::class.java)
+            intent.putExtra("usertype" , usertype)
+            startActivity(intent)
+            finish()
+        }
+
+
     }
 
     private fun authenticateUser() {

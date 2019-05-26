@@ -36,8 +36,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:dampingRatio="0.5"
-                    app:dotsColor="#FAF7F7"
-                    app:dotsStrokeColor="#9C27B0"
+                    app:dotsColor="@color/materialBlue"
+                    app:dotsStrokeColor="@color/materialBlue"
                     app:dotsCornerRadius="6dp"
                     app:dotsSize="12dp"
                     android:layout_gravity="bottom|center"
@@ -46,25 +46,30 @@
                     app:stiffness="300"
             />
             <Button
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="15dp"
                     android:id="@+id/create_account"
                     android:layout_gravity="center"
-                    android:layout_width="wrap_content"
+                    android:layout_width="250dp"
                     android:text="Create Account"
-                    android:textColorHighlight="@color/colorPrimaryDark"
-                    android:shadowColor="@color/colorPrimaryDark"
-                    android:layout_height="wrap_content"/>
+                    android:textStyle="bold"
+                    android:background="@drawable/button_style"
+                    android:textColor="@drawable/color_selector"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/futura_light_bt"
+            />
 
-            <TextView
+            <Button
                     android:id="@+id/login"
-                    android:layout_width="wrap_content"
+                    android:layout_width="250dp"
                     android:layout_gravity="center"
-                    android:textSize="12dp"
-                    android:textAppearance="@style/Widget.AppCompat.Spinner.Underlined"
-                    android:layout_marginTop="8dp"
-                    android:linksClickable="true"
-                    android:textColorLink="#FFFFFF"
-                    android:layout_height="wrap_content"/>
+                    android:textStyle="bold"
+                    android:background="@drawable/button_style"
+                    android:layout_height="wrap_content"
+                    android:text="Log in"
+                    android:fontFamily="@font/futura_light_bt"
+                    android:textColor="@drawable/color_selector"
+                    android:layout_marginTop="12dp"
+            />
 
         </LinearLayout>
 

@@ -12,10 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.RatingBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.example.demoapp.Constants.Constants
 import com.example.demoapp.R
 import com.google.firebase.database.ChildEventListener
@@ -65,8 +62,6 @@ class EmployerMainActivity : AppCompatActivity() {
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv.layoutManager = layoutManager
         rv.adapter = adapter
-        adapterList.add(Record("dcs" , "csdcd" , 3f))
-        adapter.notifyDataSetChanged()
         search_button.setOnClickListener {
             fetchDataFromDatabase(etCities.text.toString(), etcategory.text.toString())
         }
@@ -119,10 +114,11 @@ class EmployerMainActivity : AppCompatActivity() {
         val listrecord = ArrayList<Record>()
         list.forEach {
             val name = it.FirstName + " " + it.LastName
+            val phoneNumber = it.PhoneNumber
             val age = findAge(it.DateOfBirth)
             val random = (0..5).random().toFloat()
 
-            val record = Record(name, age, random)
+            val record = Record(name, age, random , phoneNumber)
             listrecord.add(record)
         }
 
@@ -229,50 +225,62 @@ class EmployerMainActivity : AppCompatActivity() {
     }
 
 
-}
 
+    inner class MyAdapter(var list: ArrayList<Record>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        override fun onCreateViewHolder(p0: ViewGroup, p1: Int): RecyclerView.ViewHolder {
+            val context = p0.context
+            val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-class MyAdapter(var list: ArrayList<Record>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): RecyclerView.ViewHolder {
-        val context = p0.context
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
-        val view = inflater.inflate(R.layout.item_row, p0, false)
-        val viewholder = MyViewHolder(view)
-        return viewholder
-    }
-
-    override fun getItemCount(): Int {
-        return list.size
-    }
-
-    override fun onBindViewHolder(p0: RecyclerView.ViewHolder, p1: Int) {
-        val record = list.get(p1)
-
-        val viewholder = p0 as MyViewHolder
-
-        viewholder.tvName.text = record.name
-        viewholder.tvAge.text = record.age
-        viewholder.ratingBar.rating = record.Ratings
-    }
-
-
-    inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        lateinit var tvName: TextView
-        lateinit var tvAge: TextView
-        lateinit var ratingBar: RatingBar
-
-        init {
-            tvName = view.tvName
-            tvAge = view.tvAge
-            ratingBar = view.ratingBar
+            val view = inflater.inflate(R.layout.item_row, p0, false)
+            val viewholder = MyViewHolder(view)
+            return viewholder
         }
+
+        override fun getItemCount(): Int {
+            return list.size
+        }
+
+        override fun onBindViewHolder(p0: RecyclerView.ViewHolder, p1: Int) {
+            val record = list.get(p1)
+
+            val viewholder = p0 as MyViewHolder
+
+            viewholder.tvName.text = record.name
+            viewholder.tvAge.text = record.age
+            viewholder.ratingBar.rating = record.Ratings
+
+
+            viewholder.imageButton.setOnClickListener{
+                val intent = Intent(Intent.ACTION_DIAL)
+                startActivity(intent)
+            }
+        }
+
+
+        inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            lateinit var tvName: TextView
+            lateinit var tvAge: TextView
+            lateinit var ratingBar: RatingBar
+            lateinit var imageButton: ImageButton
+            init {
+                tvName = view.tvName
+                tvAge = view.tvAge
+                ratingBar = view.ratingBar
+                imageButton = view.call_icon
+            }
+        }
+
     }
 
+
 }
+
+
+
 
 class Record(
     var name: String,
     var age: String,
-    var Ratings: Float
+    var Ratings: Float,
+    var PhoneNumber : String
 )

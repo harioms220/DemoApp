@@ -2,33 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:gravity="center"
-              android:background="#FAFDFD"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
     <Button
             android:text="I am a Worker"
-
-            android:textColor="@color/colorPrimaryDark"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:textColorHighlight="#448AFF"
-            android:backgroundTint="#FFFFFF"
             android:layout_marginBottom="10dp"
-
             android:layout_width="match_parent"
+            android:background="@drawable/button_style"
             android:layout_height="wrap_content"
+            android:textColor="@drawable/color_selector"
+            android:textStyle="bold"
+            android:fontFamily="@font/futura_light_bt"
             android:id="@+id/worker_button"/>
 
     <Button
             android:text="I am an Employer"
-            android:textColor="@color/colorPrimaryDark"
             android:layout_marginLeft="10dp"
+            android:textStyle="bold"
             android:layout_marginRight="10dp"
-            android:textColorHighlight="#448AFF"
-            android:backgroundTint="#FFFFFF"
+            android:background="@drawable/button_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/futura_light_bt"
+            android:textColor="@drawable/color_selector"
             android:id="@+id/employer_button"/>
-
 </LinearLayout>
